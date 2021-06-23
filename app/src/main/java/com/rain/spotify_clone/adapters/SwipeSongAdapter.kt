@@ -1,23 +1,18 @@
 package com.rain.spotify_clone.adapters
 
 import androidx.recyclerview.widget.AsyncListDiffer
-import com.bumptech.glide.RequestManager
 import com.rain.spotify_clone.R
-import kotlinx.android.synthetic.main.list_item.view.*
-import javax.inject.Inject
+import kotlinx.android.synthetic.main.list_item.view.tvPrimary
 
-class SongAdapter @Inject constructor(
-    private val glide: RequestManager
-) : BaseSongAdapter(R.layout.list_item) {
+class SwipeSongAdapter : BaseSongAdapter(R.layout.swipe_item) {
 
     override val differ = AsyncListDiffer(this, diffCallback)
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
         val song = songs[position]
         holder.itemView.apply {
-            tvPrimary.text = song.title
-            tvSecondary.text = song.artist
-            glide.load(song.imageUrl).into(ivItemImage)
+            val text = "${song.title} - ${song.artist}"
+            tvPrimary.text = text
 
             setOnClickListener {
                 onItemClickListener?.let { click ->
